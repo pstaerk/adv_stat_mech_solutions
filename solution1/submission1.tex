@@ -125,6 +125,15 @@ To see the asymptotic behavior of this formula, confer with fig.~\ref{fig:asympt
     \label{fig:asymptote}
 \end{figure}
 
+\item To prove the asymptotic behavior of this random walk, start with the probability function as above
+ \begin{equation*}
+     p (0, 0| N) = \left(  \begin{pmatrix}N\\ N/2 \end{pmatrix} \frac{1}{2^{2n}} \right)^2 = \left(\frac{N!}{(N/2)!(N - N/2)!} \frac{1}{2^N}\right)^2 = \left(\frac{N!}{((N/2)!)^2} \frac{1}{2^N}\right)^2
+ \end{equation*}
+ Using Stirling's approximation $ n! \to \sqrt{2\pi n} (n/e)^n (n \to \infty)$, we have
+ \begin{gather*}
+     p(0,0|N) \to \left(\frac{\sqrt{2\pi N}(N/e)^N}{(\sqrt{\pi N} (N/2e)^{N/2})^2} \frac{1}{2^N}\right)^2   \qquad(N \to \infty)\\
+     \to \left( \frac{\sqrt{2}}{\sqrt{\pi N}} \frac{2^N}{2^N} \right)^2 = \frac{2}{\pi N}.
+ \end{gather*}
 \end{enumerate}
 \end{problem}
 
