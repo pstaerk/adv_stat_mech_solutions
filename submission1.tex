@@ -1,0 +1,100 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[intlimits]{amsmath}
+\usepackage[hidelinks=true]{hyperref}
+\usepackage{url}
+\usepackage{breakurl}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{enumerate} 
+\usepackage{bm} 
+\usepackage{physics} 
+
+\newcommand{\ve}[1]{\bm{#1}} 
+\newcommand{\Dv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} 
+
+\newcounter{problemcounter}
+
+\newenvironment{problem}{%
+\refstepcounter{problemcounter}%
+\noindent%
+\textbf{Problem \theproblemcounter:} }{}
+
+\usepackage[separate-uncertainty=true, exponent-product=\cdot]{siunitx}
+\begin{document}
+\title{\Huge Submission 1}
+\author{Philipp Stärk}
+\date{\small \today}
+\maketitle
+
+\begin{problem}
+Self avoiding polymer model:
+
+\begin{enumerate}[a)]
+\item Probability distribution of 4 monomer chain:
+
+Possible values for chain length (found by Drawing): $ |\ve{R}_3 - \ve{R}_0| = 1, \sqrt{5}, 3 $.
+
+Probabilities, determined by enumeration and symmetry arguments:
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{@{}ll@{}}
+            \toprule
+            $ p $ & Value\\\midrule
+            $ p (|\ve{R}_3 - \ve{R}_0| = 1) $ & $\frac{2}{9}$ \\
+            $ p (|\ve{R}_3 - \ve{R}_0| = \sqrt{5}) $ & $\frac{6}{9}$ \\
+            $ p (|\ve{R}_3 - \ve{R}_0| = 3) $ & $ \frac{1}{9}  $ \\\bottomrule
+        \end{tabular} 
+    \end{table}
+
+    The probability to find the chain in a straight line is that of $ p(|\ve{R}_3 - \ve{R}_0| = 3) = \frac{1}{9} $.
+
+\item Mean:
+    \begin{equation*}
+        \expval{\abs{\ve{R}_3 - \ve{R}_0}} = \frac{2}{9} + \sqrt{5} \frac{6}{9} + 3 \frac{1}{9} \approx 2.04
+    \end{equation*}
+
+    Variance:
+    \begin{equation*}
+        \sigma = \sqrt{\expval{\abs{ \ve{R}_3 - \ve{R}_0}^2}} = \sqrt{ \frac{2}{9} + 5 \frac{6}{9} + 9 \frac{1}{9}  } \approx 1.91
+    \end{equation*}
+\end{enumerate}
+\end{problem}
+
+\begin{problem}
+Random walk on a lattice without self-avoidance:
+
+\begin{enumerate}[a)]
+\item Probability distribution $ p (X, Y | N) $:
+
+Start with considering random walk in $ x $-direction, assume $ N_x = r + l$ steps in this direction, with $ r $ the steps in positive and $ l $ steps in negative direction, i.e.\  $ X = r - l $.
+
+$ \implies r-l =x, N = r+l \implies r = \frac{N_x + x}{2}, l = \frac{N_x - x}{2} $.
+
+Thus, we have
+\begin{equation*}
+    p(X|N_x) = \begin{pmatrix}N_x\\\frac{N_x + x}{2}\end{pmatrix} p^{N_x}
+\end{equation*}
+in one direction (of course analogously in $ y $-direction), with $ p = \frac{1}{2}  $.
+
+To get the probability $ p(X, Y|N) $, we need to sum over all combinations of possible number of path-steps in each direction, where we know:
+\begin{gather*}
+    N = N_x + N_y,\\
+    \forall N_x \in \{ X, \dots,  N-Y \},\\
+    \forall N_y \in \{ Y, \dots,  N-X \}.\\
+\end{gather*}
+
+Thus, overall, we have:
+\begin{equation*}
+    p(X, Y|N) = \sum _{N_x = X}^{N-Y} \begin{pmatrix}N_x\\ \frac{N_x + X}{2}\end{pmatrix} \begin{pmatrix}N - N_x\\ \frac{N - N_x + Y}{2}  \end{pmatrix} \frac{1}{4}^N.
+\end{equation*}
+
+\end{enumerate}
+\end{problem}
+
+
+\end{document}
