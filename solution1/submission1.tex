@@ -13,6 +13,7 @@
 \usepackage{enumerate} 
 \usepackage{bm} 
 \usepackage{physics} 
+\usepackage{cleveref} 
 
 \newcommand{\ve}[1]{\bm{#1}} 
 \newcommand{\Dv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} 
@@ -69,7 +70,7 @@ Probabilities, determined by enumeration and symmetry arguments:
 Random walk on a lattice without self-avoidance:
 
 \begin{enumerate}[a)]
-\item Probability distribution $ p (X, Y | N) $:
+\item \label{it:a} Probability distribution $ p (X, Y | N) $:
 
 Start with considering random walk in $ x $-direction, assume $ N_x = r + l$ steps in this direction, with $ r $ the steps in positive and $ l $ steps in negative direction, i.e.\  $ X = r - l $.
 
@@ -90,8 +91,25 @@ To get the probability $ p(X, Y|N) $, we need to sum over all combinations of po
 
 Thus, overall, we have:
 \begin{equation*}
-    p(X, Y|N) = \sum _{N_x = X}^{N-Y} \begin{pmatrix}N_x\\ \frac{N_x + X}{2}\end{pmatrix} \begin{pmatrix}N - N_x\\ \frac{N - N_x + Y}{2}  \end{pmatrix} \frac{1}{4}^N.
+    p(X, Y|N) = \sum _{N_x = X}^{N-Y} \begin{pmatrix}N_x\\ \frac{N_x + X}{2}\end{pmatrix} \begin{pmatrix}N - N_x\\ \frac{N - N_x + Y}{2}  \end{pmatrix} \frac{1}{4}^N,
 \end{equation*}
+with the condition that $ X + Y $ is even (odd), if $ N $ is even (odd), otherwise we immediately know $ p(X, Y|N) = 0 $, because there is no possible path to that point.
+
+I am not sure if there is a more elegant, close form solution to this probability distribution, because this is a bit ugly.
+
+\item\label{it:b} Mean value:
+
+    One can reason that there is nothing special about the $ x $-direction, i.e. $ \expval{N_x} = \frac{N}{2} $, thus, we may use the probability distribution $ p(X|N_x) $ as defined above in \ref{it:a}).
+\begin{equation*}
+    \expval{X|N} = \sum_{X} X p(X|\underbrace{N_x}_{= N/2}) = \sum_{X=0}^{N} X \begin{pmatrix}
+        N/2\\ \frac{N/2 + X}{2}
+    \end{pmatrix} \frac{1}{2}^{N/2}
+\end{equation*}
+The same obviously holds for $ \expval{Y|N} $.
+
+\item The path cannot return to (0,0) for odd number of jumps, as $ X + Y = 2\mathbb{Z} $ is only possible for even numbers of steps.
+
+The probability function.
 
 \end{enumerate}
 \end{problem}
