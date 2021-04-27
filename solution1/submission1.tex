@@ -14,6 +14,7 @@
 \usepackage{bm} 
 \usepackage{physics} 
 \usepackage{cleveref} 
+\usepackage{pgfplots} 
 
 \newcommand{\ve}[1]{\bm{#1}} 
 \newcommand{\Dv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} 
@@ -107,12 +108,24 @@ I am not sure if there is a more elegant, close form solution to this probabilit
 \end{equation*}
 The same obviously holds for $ \expval{Y|N} $.
 
-\item The path cannot return to (0,0) for odd number of jumps, as $ X + Y = 2\mathbb{Z} $ is only possible for even numbers of steps.
+\item The path cannot return to (0,0) for odd number of jumps, as $ X + Y = 2\mathbb{N} $ is only possible for even numbers of steps.
 
-The probability function.
+The probability function: for a return to the starting point can be determined like this: Consider that to end up at the same square one has to walk $ r  $ steps to the right and $ l = r $ steps to the left.
+Similarly, one has to walk the same number of steps upwards compared to downwards.
+Again, there is nothing special about each directions, so this will be the probability of one walker coming back to zero squared, with the average number of steps in one direction being $ n := N/2 $:
+\begin{equation*}
+    p (0, 0| \underbrace{2n}_{=N}) = \left(  \begin{pmatrix}2n\\ n \end{pmatrix} \frac{1}{2^{2n}} \right)^2.
+\end{equation*}
+
+To see the asymptotic behavior of this formula, confer with fig.~\ref{fig:asymptote}.
+\begin{figure}[h]
+    \centering
+    \input{./Asymptotic.tex}
+    \caption{Exact probability for $ p(0,0|N) $ plotted together with $ 2/(\pi N) $.}
+    \label{fig:asymptote}
+\end{figure}
 
 \end{enumerate}
 \end{problem}
-
 
 \end{document}
