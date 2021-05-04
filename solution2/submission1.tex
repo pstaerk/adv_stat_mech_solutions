@@ -1,0 +1,91 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[intlimits]{amsmath}
+\usepackage[hidelinks=true]{hyperref}
+\usepackage{url}
+\usepackage{breakurl}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{enumerate} 
+\usepackage{bm} 
+\usepackage{physics} 
+\usepackage{cleveref} 
+\usepackage{pgfplots} 
+
+\newcommand{\ve}[1]{\bm{#1}} 
+\newcommand{\Dv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} 
+
+\newcounter{problemcounter}
+
+\newenvironment{problem}{%
+\refstepcounter{problemcounter}%
+\noindent%
+\textbf{Problem \theproblemcounter:} }{}
+
+\usepackage[separate-uncertainty=true, exponent-product=\cdot]{siunitx}
+\begin{document}
+\title{\Huge Submission 2}
+\author{Philipp Stärk}
+\date{\small \today}
+\maketitle
+
+\begin{problem}
+\begin{enumerate}[a)]
+\item Free energy calculation: We know $ S_I = \beta (U_I -F_I) $.
+     \begin{gather*}
+         F_I = U_I - \beta^{-1} S_I\\
+     \implies F_1 = - \ln (2)/\beta\\
+     F_2 = E
+     \end{gather*}
+\item Starting with the definition for the free intrinsic energy $ p_I^e = \exp(-\beta (F_I -F)) $, thus we have:
+     \begin{gather*}
+         p_1^e = \frac{\exp(\beta \beta^{-1} \ln(2))}{Z}\\
+         p_2^2 = \frac{\exp(-\beta E)}{Z},
+     \end{gather*}
+     where the partition sum $ Z = p_1^e + p_2^e$ is the normalization factor.
+     \begin{equation*}
+         Z = \sqrt{2 + \exp(-\beta E)}.
+     \end{equation*}
+
+\item Starting with the transition rate $ k^+ = K_{12} $ and knowing:
+    \begin{equation*}
+        \frac{k^+}{k^-} = \exp(-\beta \Delta _{12} F)
+    \end{equation*}
+    Where $ \Delta _{12}F $ is the energy difference between meso-state 1 and 2.
+    Thus we have
+    \begin{equation*}
+        k^- = \frac{k^+}{\exp(-\beta E + \ln 2)} = \frac{k^+}{\exp(-\beta E) + 2}.
+    \end{equation*}
+
+\item The master equations read
+    \begin{align*}
+        \label{eq:ma_eq}
+        \partial_t p_1(t) &= -k^+ p_1(t) + p_2(t)k^-\\
+        \partial_t p_1(t) &= k^+ p_1(t) - p_2(t)k^-\\
+        \Leftrightarrow:
+        \partial_t \ve{p}(t) &= \underbrace{\begin{pmatrix}-1 & 1\\1&-1\end{pmatrix}}_{=:A} \ve{p}(t)
+    \end{align*}
+    This linear system of differential equations of the first order can be solved by getting the eigenvalues and eigenvectors of $ A $.
+
+    Hence, the general solution is given by:
+    \begin{equation*}
+        \ve{p}(t) = c_1e^{-2t} \begin{pmatrix}-1\\1 \end{pmatrix} + c_2\cdot \begin{pmatrix}1\\1\end{pmatrix}, c_i \in \mathbb{R}.
+    \end{equation*}
+    The parameter $ c $ can be determined by inserting the initial condition:
+    \begin{equation*}
+        \ve{p}(0) = \begin{pmatrix}1-\epsilon\\\epsilon\end{pmatrix} = c_1 \begin{pmatrix}-1\\1 \end{pmatrix} + c_2\begin{pmatrix}1\\1\end{pmatrix}.
+    \end{equation*}
+    Which solves to $ c_1 = \epsilon - 1/2 $ and $ c_2 = 1/2 $ .
+
+\item From the lecture we know
+    \begin{equation*}
+        \expval{\dot{Q}} (t) = p_I (t) K_{IJ} Q_{IJ}.
+    \end{equation*}
+\end{enumerate}
+\end{problem}
+
+\end{document}
