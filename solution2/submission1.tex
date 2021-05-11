@@ -15,6 +15,7 @@
 \usepackage{physics} 
 \usepackage{cleveref} 
 \usepackage{pgfplots} 
+\usepackage{csquotes} 
 
 \newcommand{\ve}[1]{\bm{#1}} 
 \newcommand{\Dv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} 
@@ -32,6 +33,12 @@
 \author{Philipp Stärk}
 \date{\small \today}
 \maketitle
+\paragraph{Hinweis}%
+\label{par:hinweis}
+Ich benötige keinen Schein, ich höre Adv. Stat. Mech. nur aus Interesse.
+Meine Abgaben müssen daher nicht korrigiert werden, allerdings möchte ich sie dennoch machen, um mich am Ball zu halten.
+\vspace{1em}
+
 
 \begin{problem}
 \begin{enumerate}[a)]
@@ -77,14 +84,46 @@
     \end{equation*}
     The parameter $ c $ can be determined by inserting the initial condition:
     \begin{equation*}
-        \ve{p}(0) = \begin{pmatrix}1-\epsilon\\\epsilon\end{pmatrix} = c_1 \begin{pmatrix}-1\\1 \end{pmatrix} + c_2\begin{pmatrix}1\\1\end{pmatrix}.
+        \ve{p}(0) \overset{!}{=} \begin{pmatrix}1-\epsilon\\\epsilon\end{pmatrix} = c_1 \begin{pmatrix}-1\\1 \end{pmatrix} + c_2\begin{pmatrix}1\\1\end{pmatrix}.
     \end{equation*}
     Which solves to $ c_1 = \epsilon - 1/2 $ and $ c_2 = 1/2 $ .
 
 \item From the lecture we know
+    \begin{align*}
+        \expval{\dot{Q}} (t) &= \sum _{I,J} p_I (t) K_{IJ} Q_{IJ} = p_1(t) k^+ Q_{12} + p_2(t) k^- Q_{21}\\
+                             &= ((\epsilon - 1/2) e^{-2t} - 1/2 ) k^+E + (\epsilon e^{-2t}+1/2)k^- E\\
+        \implies \expval{\dot{Q}} (0) &= ((\underbrace{\epsilon}_{\to 0}-1/2) - 1/2) k^+ E + (\underbrace{\epsilon}_{\to 0} + 1/2)k^- E \\ 
+                                      &= -k^+ E + \frac{1}{2}\frac{k^+}{\exp(-\beta E) + 2}E,
+    \end{align*}
+    the negativity of this quantity stems from the fact that the initial configuration is primed to be in the ground state.
+    Thus, overall the system will \enquote{want} to acquire more energy.
+    The convention is to denote energy taken from the heat bath (which is what will happen on average) as a negative number.
+
+\item The instantaneous total entropy production rate is determined by
     \begin{equation*}
-        \expval{\dot{Q}} (t) = p_I (t) K_{IJ} Q_{IJ}.
+        \expval{\dot{S}_{\text{tot}}} (t) = \sum_{IJ} \left( p_I K_{IJ} - p_J K_{JI} \right) \ln \frac{p_I K_{IJ}}{p_J K_{JI}} = (p_1 k^+ - p_2 k^-) \ln \frac{p_1 k^+}{p_2 k^-},
     \end{equation*}
+    Inserting what we have calculated before, we get
+    \begin{gather*}
+        \expval{\dot{S} _{\text{tot}}} (t) = \left(k^{+} \left(\left(0.5 - \epsilon\right) e^{- 2 t} + 0.5\right) - \frac{k^{+} \left(\left(\epsilon - 0.5\right) e^{- 2 t} + 0.5\right)}{2 + e^{- \beta E}}\right)\cdot\\ 
+        \log{\left(\frac{\left(2 + e^{- \beta E}\right) \left(\left(0.5 - \epsilon\right) e^{- 2 t} + 0.5\right)}{\left(\epsilon - 0.5\right) e^{- 2 t} + 0.5} \right)}.
+    \end{gather*}
+
+\item Trajectory with $ \Delta S _{\text{tot}} [I(t)] < 0 $.
+    Let's start with the definition for the total entropy production for a given trajectory:
+    \begin{gather*}
+        \Delta S _{\text{tot}}[I(t)] = \ln \frac{p [I(t)]}{p[\tilde{I}(t)]} = \ln \frac{p[I(t)|I^0]}{p[\tilde{I}(t)|I^T]},
+    \end{gather*}
+    where $ p[I(t)|I^0] = \left[\prod_{l=1}^L e^{-\Gamma _{I_l} (t_l - t _{l-1})} K_{I_l^- I_l^+}\right]e^{-\Gamma_{I^T}(T-t_l)} $.
+    Imagine a trajectory $ I(t) $ which starts in state 2 and at time $ \tau $ jumps to state 1, remaining there till $ T $.
+    Then, we have:
+    \begin{align*}
+        \label{eq:}
+        p[I(t)|I^0] &= e^{-k^- \tau} k^- e^{-k^+ (T-\tau)}\\
+        p[\tilde{I}(t)|I^T] &= e^{-k^- \tau} k^+ e^{-k^+ (T-\tau)}\\
+        \implies \frac{p[I(t)|I^0]}{p[\tilde{I}(t)|I^T]} &= \frac{k^-}{k^+} = \frac{1}{\exp(-\beta E) + 2} =: B,\\
+        \implies \ln B &< 0.
+    \end{align*}
 \end{enumerate}
 \end{problem}
 
