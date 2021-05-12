@@ -1,0 +1,82 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[intlimits]{amsmath}
+\usepackage[hidelinks=true]{hyperref}
+\usepackage{url}
+\usepackage{breakurl}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{enumerate} 
+\usepackage{bm} 
+\usepackage{physics} 
+\usepackage{cleveref} 
+\usepackage{pgfplots} 
+
+\newcommand{\ve}[1]{\bm{#1}} 
+\newcommand{\Dv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} 
+
+\newcounter{problemcounter}
+
+\newenvironment{problem}{%
+\refstepcounter{problemcounter}%
+\noindent%
+\textbf{Problem \theproblemcounter:} }{}
+
+\usepackage[separate-uncertainty=true, exponent-product=\cdot]{siunitx}
+\begin{document}
+\title{\Huge Submission 1}
+\author{Philipp Stärk}
+\date{\small \today}
+\maketitle
+
+\begin{problem}
+    Trajectory Thermodynamics for driven systems.
+    \begin{enumerate}[a)]
+        \item We know that $ K_{IJ} $ is defined as the instantaneous transition probability and that $ \Gamma_{I} $, the escape rate is the sum of all $ K_{I \cdot} $.
+            Thus, the probability to remain in state $ I $ for some time interval $ [t_1, t_2) $ is given by
+    \begin{equation*}
+        p _{\text{rem.}} (t) = \exp\left( - \int ^{t_2} _{t_1} \sum_J K_{IJ}(\lambda^t') \dd t' \right).
+    \end{equation*}
+
+    Following the derivation of the path weight of the lecture, we thus get
+    \begin{gather*}
+    p[I(t)|I^0] = \left[ \prod _{l=1}^L \exp\left( - \int^{t_l}_{t_{l-1}} \dd t' \sum_J K_{I^-_{l}J}(\lambda^{t'}) \right) K_{I^- _l I^+_l}(\lambda ^{t_l}) \right]\cdot\\
+    \cdot \exp\left( - \int^{T} _{t_{L-1}} \dd t' \sum_J K_{I^-_L J} (\lambda ^t')\right)
+    \end{gather*}
+
+    \end{enumerate}
+\end{problem}
+
+\begin{problem}
+    Driven Hamiltonian System:
+
+    \begin{enumerate}[a)]
+    \item Solve Hamilton's equations for the initial condition, which read
+    \begin{equation*}
+        \dot{p} (t) = - m \omega^2 (q-\lambda^t), \qquad  \dot{q} (t) = \frac{p}{m},
+    \end{equation*}
+    i.e.
+    \begin{gather*}
+        \ddot{q}(t) = \omega^2 (q-\lambda^t) = \omega^2 (q-vt)\\
+    \end{gather*}
+    This differential equation has the solutions:
+    \begin{equation*}
+        q (t) = c_1 e^{\omega t} + c_2 e ^{-\omega t} + vt,\qquad  p(t) = \frac{\omega (c_1 e^{\omega t} - c_2 e ^{-\omega t}) + v}{m}.
+    \end{equation*}
+    Inserting the initial conditions
+    \begin{equation*}
+        q(0) = q_0 = c_1 + c_2; \qquad p(0) = p_0 = \frac{\omega}{m} (c_1 - c_2),
+    \end{equation*}
+    which gives us
+    \begin{equation*}
+        c_1 = \frac{m p_0}{2 \omega} + \frac{q_0}{2}; \qquad c_2 = - \frac{m p_0}{2\omega}.
+    \end{equation*}
+\end{enumerate}
+    
+\end{problem}
+
+\end{document}
