@@ -1,0 +1,73 @@
+\documentclass[10pt,a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[intlimits]{amsmath}
+\usepackage[hidelinks=true]{hyperref}
+\usepackage{url}
+\usepackage{breakurl}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{todonotes}
+\usepackage{enumerate} 
+\usepackage{bm} 
+\usepackage{physics} 
+\usepackage{cleveref} 
+\usepackage{pgfplots} 
+
+\newcommand{\ve}[1]{\bm{#1}} 
+\newcommand{\Dv}[2]{\frac{\mathrm{D}#1}{\mathrm{D}#2}} 
+
+\newcounter{problemcounter}
+
+\newenvironment{problem}{%
+\refstepcounter{problemcounter}%
+\noindent%
+\textbf{Problem \theproblemcounter:} }{}
+
+\usepackage[separate-uncertainty=true, exponent-product=\cdot]{siunitx}
+\begin{document}
+\title{\Huge Submission 4}
+\author{Philipp Stärk}
+\date{\small \today}
+\maketitle
+
+\begin{problem}
+    Mean-square displacement of a free Brownian particle
+    \begin{enumerate}[a)]
+        \item Start with the solution to the Langevin equation
+        \begin{equation*}
+            p(t) = -e^{-\Gamma t}\left( p^0 + \int^t _0 \dd t' e^{\Gamma t'} f(t')\right) =: p_0(t) + \delta p(t),
+        \end{equation*}
+        which then, inserted into $ \expval{p(t)p(t')} $ leads us to
+        \begin{align*}
+            \expval{p(t)p(t')} &= \expval{(p_0(t) + \delta p(t))(p_0(t') + \delta p(t'))}\\
+                               &= \expval{\underbrace{p_0(t)p_0(t')}_{= e^{-\Gamma (t+t')} {(p^0)}^2} + \underbrace{\delta p(t) p_0(t) }_{ = 0}+ \underbrace{p_0(t) \delta p(t') }_{ = 0}+ \underbrace{\delta p(t)\delta p(t')}_{ =:A}},
+        \end{align*}
+
+        where $ A $ can be calculated by
+
+        \begin{align*}
+            A &= e^{-\Gamma (t-t')} \int_0 ^t \dd \tau e^{\Gamma \tau} \int_0^{t'} \dd \tau' e^{\Gamma \tau'} \underbrace{\expval{f(t)f(t')}}_{ =2 \Gamma M/\beta \delta(\tau - \tau')}\\
+              &= e^{-\Gamma (t+t')} \int _{0} ^t \dd \tau e^{2\Gamma \tau}2B\\
+              &= \frac{2 M}{\beta} \left( e^{-\Gamma (t' - t)} + e^{-\Gamma (t+t')} \right).
+        \end{align*}
+        overall, we thus have
+        \begin{equation*}
+            \expval{p(t)p(t')} = e^{-\Gamma (t +t')} (p^0)^2 + \frac{2M}{\beta} \left( e^{-\Gamma (t' - t)} + e^{-\Gamma (t + t')} \right).
+        \end{equation*}
+
+    \item Next, consider the mean square displacement $ \expval{[x(t) - x(0)] ^2} $.
+    As per definition (4), we have
+    \begin{align*}
+        \label{eq:}
+        \expval{(x(t) - x(0))^2} &= \frac{1}{M^2} \expval{ \left( \int _{0} ^t \dd t' p(t') \right)^2} = \expval{ \left( \int _{0} ^t \dd t' p_0(t') + \delta p(t') \right)^2}\\
+            &= \underbrace{\frac{1}{M^2} (p^0)^2 \frac{(1-e^{\Gamma t})^2}{t}}_{ =: A}+ \frac{1}{M^2} \int_0 ^t \dd \tau \int_0 ^t \dd \tau' \expval{\delta p(\tau) \delta p(\tau')}\\
+            &= A + \frac{1}{M^2} \int_0 ^t \dd \tau \int_0 ^t \dd \tau' \frac{B}{\Gamma} \left( e^{-\Gamma (\tau' - \tau)} + e^{-\Gamma (\tau + \tau')}\right)\\
+            &= A + \frac{B}{\Gamma M^2} \left[ \frac{1}{\Gamma^2} \left( 1 - e^{-2\Gamma t} \right) + \left( \frac{e^{-\Gamma t} - 1}{\Gamma} \right)^2 \right]
+    \end{align*}
+    \end{enumerate}
+\end{problem}
+
+\end{document}
